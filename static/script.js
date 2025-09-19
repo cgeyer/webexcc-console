@@ -8,10 +8,10 @@ function themeSwitcher(theme) {
   document.getElementsByTagName("mdc-themeprovider")[0].setAttribute("themeclass", theme);
   if (theme == "mds-theme-stable-darkWebex") {
     newTheme = "mds-theme-stable-lightWebex";
-    document.getElementById("root").style = "background: url('@momentum-design/brand-visuals/dist/backgrounds/operation-pop-background-dark.png'); background-size: cover;";
+    document.getElementById("root").style = "background: url('@momentum-design/brand-visuals/dist/png/operation-pop-background-dark.png'); background-size: cover;";
 
   } else {
-    document.getElementById("root").style = "background: url('@momentum-design/brand-visuals/dist/backgrounds/operation-pop-background-light.png'); background-size: cover;";
+    document.getElementById("root").style = "background: url('@momentum-design/brand-visuals/dist/png/operation-pop-background-light.png'); background-size: cover;";
   }
   document.getElementById("theme-toggle").setAttribute("onChange", "themeSwitcher('" + newTheme + "')")
 }
