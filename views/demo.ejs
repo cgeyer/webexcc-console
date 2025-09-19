@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Available Demos</title>
+    <link rel="stylesheet" href="@momentum-design/fonts/dist/css/fonts.css" />
+    <link rel="stylesheet" href="@momentum-design/tokens/dist/css/components/complete.css"/>
+    <link rel="stylesheet" href="styles.css">  
+    <script src="@momentum-design/components/dist/browser/index.js"></script>
+    <script language="JavaScript">
+      /* definition of global variables */
+      var demoSettings = <%-JSON.stringify(demoSettings)%>;
+      var demos = <%-JSON.stringify(demos)%>;
+    </script>
+    <script src="script.js"></script>
+  </head>
+  <!-- mds-typography needs to be set on the root for proper Font usage -->
+  <body class="mds-typography" style="margin: 0;">
+    <mdc-themeprovider themeclass="mds-theme-stable-lightWebex">
+      <mdc-iconprovider icon-set="custom-icons" url="@momentum-design/icons/dist/svg">
+        <!-- <div id="root" style="background: radial-gradient(96.34% 74.79% at 0% -7%, rgba(245, 88, 104, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%), radial-gradient(78.98% 75.01% at 53.73% -5.7%, rgba(17, 112, 207, 0.60) 0%, rgba(17, 112, 207, 0.21) 41.65%, rgba(0, 0, 0, 0.00) 100%), var(--mds-color-theme-background-solid-primary-normal, #000);"> -->
+        <!--<div id="root" style="background: radial-gradient(96.34% 74.79% at 0% -7%, rgba(135, 217, 163, 0.7) 0%, rgba(0, 0, 0, 0.00) 100%), radial-gradient(78.98% 75.01% at 53.73% -5.7%, rgba(17, 112, 207, 0.60) 0%, rgba(17, 112, 207, 0.21) 41.65%, rgba(0, 0, 0, 0.00) 100%), var(--mds-color-theme-background-solid-primary-normal, #000);"> -->
+        <div id="root">
+          <div id="header">
+              <mdc-appheader>
+                <div slot="center">
+                  <mdc-text type="heading-midsize-bold">Webex Contact Center Demos</mdc-text>
+                </div>
+                <div slot="trailing">
+                  <mdc-toggle label="Dark Theme" onChange="themeSwitcher('mds-theme-stable-darkWebex')" id="theme-toggle"></mdc-toggle>
+                </div>
+              </mdc-appheader>
+              <mdc-text type="heading-small-medium" slot="center">Active Demo: <span id="activeDemoName"><%=demoSettings.activeDemo%></span></mdc-text>
+          </div>
+          <div class="canvas">
+            <mdc-accordiongroup size="large" variant="stacked" class="demos">
+        <%_ for (var i = 0; i < demos.length; i++) { _%>
+              <mdc-accordion data-aria-level="3" header-text="<%=demos[i].name%>" size="small" variant="default" id="<%=demos[i]._id%>-accordion" onClick="loadCRM('<%=demos[i]._id%>')">
+        <%_   if (demoSettings.activeDemo == demos[i].name) { _%>
+                <mdc-chip slot="trailing-controls" color="mint" label="Active" id="<%=demos[i].name%>-enable"></mdc-chip>
+        <%_   }  else {   _%>  
+                <mdc-chip slot="trailing-controls" color="orange" label="Enable" id="<%=demos[i].name%>-enable" onclick="confirmActiveDemo('<%=demos[i].name%>')"></mdc-chip>
+        <%_   } _%>
+        <%_   if (demos[i].hasOwnProperty('description')) { _%>
+                <div class="demodescription">
+                  <h3>Demo Description</h3>
+                  <p><%-demos[i].description%></p>
+                </div>
+        <%_   } _%>
+        <%_   if (demos[i].hasOwnProperty('parameters')) { _%>
+                <div class="demoparams">
+                  <h3>Demo Parameters</h3>
+        <%_     var parameters = demos[i].parameters; _%>
+        <%_     for (var j = 0; j < parameters.length; j++) { _%>             
+        <%_       if (parameters[j].type == "string") { _%>
+                  <mdc-input label="<%=parameters[j].label%>" validation-message="" placeholder="<%=parameters[j].label%>" id="<%=demos[i]._id + '-' + parameters[j].name%>" value="<%=parameters[j].value%>" autocapitalize="none" clear-aria-label="clear input"></mdc-input>
+        <%_       } else if (parameters[j].type == "boolean") { _%>
+                  <mdc-toggle id="<%=demos[i]._id + '-' + parameters[j].name%>"<%-(parameters[j].value) ? ' checked=""' : '';-%> size="default" label="<%=parameters[j].label%>"></mdc-toggle>
+        <%_       } _%>
+        <%_     } _%>
+                  <div class="demoparamssave">
+                    <mdc-button variant="primary" id="<%=demos[i]._id%>-save-params-button" size="32" color="default" prefix-icon="" postfix-icon="upload-regular" type="button" role="button" tabindex="0" aria-label="" onclick="saveDemoParameters('<%=demos[i]._id%>')">Save</mdc-button>
+                  </div>
+                </div>
+        <%_ } _%>
+                <div id="<%=demos[i]._id%>-crmdata" class="crmdata"></div>
+              </mdc-accordion>
+        <%_ } _%>
+            </mdc-accordiongroup>
+            <mdc-dialog id="enable-dialog" z-index="1000" close-button-aria-label="Close dialog" header-text="Change Active Demo" description-text="" header-tag-name="h2" description-tag-name="p" role="dialog" size="small" variant="default" should-focus-trap-wrap="" focus-trap="" onclose="hideDialog('enable')">
+              <div id="enable-dialog-body" slot="dialog-body">
+              </div>
+              <mdc-button slot="footer-button-secondary" role="button" type="button" size="32" variant="secondary" color="default" data-btn-type="pill" onclick="hideDialog('enable')" id="cancel-button">Cancel</mdc-button>
+              <mdc-button slot="footer-button-primary" role="button" type="button" size="32" variant="primary" color="default" data-btn-type="pill" onclick="changeActiveDemo()" id="confirm-button">Confirm</mdc-button>
+              <mdc-button role="button" type="button" size="32" variant="primary" color="default" data-btn-type="pill" onclick="hideDialog('enable')" id="ok-button">OK</mdc-button>
+            </mdc-dialog>
+            <mdc-dialog id="delete-dialog" z-index="1000" close-button-aria-label="Close dialog" header-text="Change Active Demo" description-text="" header-tag-name="h2" description-tag-name="p" role="dialog" size="small" variant="default" should-focus-trap-wrap="" focus-trap="" onclose="hideDialog('delete')">
+              <div id="delete-dialog-body" slot="dialog-body">
+                <p>Do you really want to delete the current element?</p>
+              </div>
+              <mdc-button slot="footer-button-secondary" role="button" type="button" size="32" variant="secondary" color="default" data-btn-type="pill" onclick="hideDialog('delete')">Cancel</mdc-button>
+              <mdc-button slot="footer-button-primary" role="button" type="button" size="32" variant="primary" color="default" data-btn-type="pill"  id="delete-button">Delete</mdc-button>
+            </mdc-dialog>
+          </div>
+        </div>
+      </mdc-iconprovider>
+    </mdc-themeprovider>
+  </body>
+</html>

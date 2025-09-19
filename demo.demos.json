@@ -1,0 +1,138 @@
+[{
+  "_id": {
+    "$oid": "68ac12cf8e37c492b02b0192"
+  },
+  "activeDemo": "calendarDemo",
+  "demoSettings": true,
+  "dbName": "demo"
+},
+{
+  "_id": {
+    "$oid": "68ac13868e37c492b02b0193"
+  },
+  "name": "energyAIAgent",
+  "description": "This demo uses the Webex AI Agent and lets the calling person choose a new contract. You can customize the demo by providing the name of the company.",
+  "parameters": [
+    {
+      "name": "companyName",
+      "type": "string",
+      "label": "Company Name",
+      "value": "MyEnergy"
+    }
+  ],
+  "database": {
+    "fields": {
+      "customerName": {
+        "type": "string",
+        "label": "Customer Name"
+      },
+      "customerEmail": {
+        "type": "string",
+        "label": "Email"
+      },
+      "customerPhoneNumber": {
+        "type": "string",
+        "label": "Phone Number"
+      },
+      "customerMobilePhoneNumber": {
+        "type": "string",
+        "label": "Mobile Phone Number"
+      },
+      "contractId": {
+        "type": "string",
+        "label": "Contract ID"
+      },
+      "customerProduct": {
+        "type": "string",
+        "label": "Current Product"
+      }
+    },
+    "collectionName": "energy-ai-crm",
+    "dbName": "demo"
+  }
+},
+{
+  "_id": {
+    "$oid": "68b16a468e37c492b02b01bb"
+  },
+  "name": "energyIVR",
+  "description": "This demo uses standard IVR menus and database lookups to let the calling person manage their existing contract. You can customize the demo by providing the name of the company and choose whether a special announcement is active or not.",
+  "parameters": [
+    {
+      "name": "emergencyOn",
+      "label": "Enable Emergency Message",
+      "type": "boolean",
+      "value": true
+    },
+    {
+      "name": "emergencyMessage",
+      "label": "Emergency Message",
+      "type": "string",
+      "value": "We are aware of the current power outage - please only stay on the line if you have a different concern."
+    },
+    {
+      "name": "companyName",
+      "type": "string",
+      "label": "Company Name",
+      "value": "Future Energy"
+    }
+  ],
+  "database": {
+    "fields": {
+      "customerName": {
+        "type": "string",
+        "label": "Customer Name"
+      },
+      "customerEmail": {
+        "type": "string",
+        "label": "Email"
+      },
+      "customerPhoneNumber": {
+        "type": "string",
+        "label": "Phone Number"
+      },
+      "customerMobilePhoneNumber": {
+        "type": "string",
+        "label": "Mobile Phone Number"
+      },
+      "contractId": {
+        "type": "string",
+        "label": "Contract ID"
+      },
+      "customerProduct": {
+        "type": "string",
+        "label": "Current Product"
+      }
+    },
+    "collectionName": "energy-ivr-crm",
+    "dbName": "demo"
+  }
+},
+{
+  "_id": {
+    "$oid": "68b37d718e37c492b02b01be"
+  },
+  "name": "calendarDemo",
+  "description": "This demo shows how you can integrate an Exchange calendar with Webex Contact Center and the Webex AI Agent to schedule callbacks. Note that this demo doesn't have a CRM associated."
+},
+{
+  "_id": {
+    "$oid": "68b856cf8e37c492b02b01df"
+  },
+  "name": "newDemo",
+  "description": "This demo is just showing that parameters are optional and how boolean fields work for CRMs.",
+  "database": {
+    "dbName": "demo",
+    "collectionName": "demo-crm",
+    "fields": {
+      "name": {
+        "type": "string",
+        "label": "Customer Name"
+      },
+      "isVIP": {
+        "type": "boolean",
+        "label": "VIP Customer"
+      }
+    }
+  }
+}]

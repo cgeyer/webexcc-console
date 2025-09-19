@@ -1,0 +1,102 @@
+#root {
+  /* position: absolute; */
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  background: url('@momentum-design/brand-visuals/dist/backgrounds/operation-pop-background-light.png');
+  background-size: cover;
+}
+
+#header {
+  position: relative;
+  /* position: fixed; */
+  top: 0px;
+  padding: 20px;
+}
+
+/*
+#enable-dialog {
+  position: fixed;
+}
+
+#delete-dialog {
+  position: fixed;
+}
+*/
+
+.canvas {
+  /* Allows this div to take up available space */
+  /* flex-grow: 1;  */
+  overflow-y: scroll; /* Enables vertical scrolling when content overflows */
+  /* You can also use overflow: auto; for both horizontal and vertical */
+}
+.demos {
+  margin-top: 0px;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-bottom: 5vh;
+}
+
+.demodescription {
+  padding: 0.5rem; 
+  display: flex; 
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.demoparams {
+  padding: 0.5rem; 
+  display: flex; 
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.demoparamssave {
+  margin-right: 1rem;
+  display: flex;
+  justify-content: right;
+}
+
+.spinnercontainer {
+  margin-right: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.crmdata {
+  padding: 0.5rem; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 1rem;
+}
+
+.crmrow {
+  display: grid;
+  grid-template-columns: 9fr auto;
+  gap: 1rem;
+}
+
+.crmelement {
+  padding-bottom: 1rem;
+}
+
+.crmbuttoncontainer {
+  margin-top: 1rem;
+}
+
+.crmnewbuttoncontainer {
+  margin-left: 1rem;
+  display: flex;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.separator {
+ height: 1rem; 
+ margin: 0.3rem;
+}
