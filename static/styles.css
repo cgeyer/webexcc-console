@@ -8,7 +8,7 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  background: url('@momentum-design/brand-visuals/dist/backgrounds/operation-pop-background-light.png');
+  background: url('@momentum-design/brand-visuals/dist/png/operation-pop-background-light.png');
   background-size: cover;
 }
 
