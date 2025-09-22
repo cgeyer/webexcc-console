@@ -12,7 +12,7 @@ A second use case is to leverage the tool as a "supervisor console" within agent
 The Webex CC Console is built using four main components:
 1. [MongoDB](#prepare-mongodb) which serves as database in the background.
 2. Node.js as web service.
-3. The @momentum-design components library which is an open-source project by Cisco to facilitate creating web applications which are compatible with Webex.
+3. The [@momentum-design components](https://momentum-design.github.io/momentum-design/en/components/) library which is an open-source project by Cisco to facilitate creating web applications which are compatible with Webex.
 4. alwaysdata to facilitate (free) hosting of the complete tool on a publicly available URL.
 
 You do not need to fully understand JavaScript, HTML or Node.js, but should be familiar with JSON and REST APIs if you want to customize this tool and use it in your own environment.
