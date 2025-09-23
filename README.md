@@ -69,5 +69,6 @@ Congratulations, we are now done with all basic steps and you can start adapting
 
 # Video Explanations
 
-* [Installation Part One](https://app.vidcast.io/share/ecd9fdf3-aeac-468e-8c93-95dd9f288a83) 
+* [Installation Part One](https://app.vidcast.io/share/ecd9fdf3-aeac-468e-8c93-95dd9f288a83)
+* [Installation Part Two](https://app.vidcast.io/share/b98dc818-d6c4-4a1f-ac36-b8bc6e8e9793) 
 
