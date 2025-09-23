@@ -33,7 +33,7 @@ Connect to MongoDB using the Compass app - navigate to Database / Clusters and c
 
 Congratulations, we are done with all the basic steps in MongoDB and can continue!
 
-## Setting up alwaysdata as hosting provider
+## Setting up alwaysdata as Hosting Provider
 Visit https://www.alwaysdata.com/en/register/ and create a new account. After the validation of your email address, select the _Free_ plan from the product dropdown, create a username and password. That account will be used for remote access such as SSH. The username will also determine the domain name of your service, i.e., `<username>.alwaysdata.net` for webhosting. Save the password - navigate to Remote Access / SSH and either use your favourite SSH client or simply use the web option presented on top. Authentication works using the username and password you created earlier.
 
 Once connected via SSH clone this repository by executing the command `git clone https://github.com/cgeyer/webexcc-console.git`. Now change to the created directory by entering `cd webexcc-console` and install all required node.js packages by executing `npm i` (may take a while).
@@ -60,6 +60,17 @@ Congratulations, we are now done with all basic steps and you can start adapting
 # Working with the Webex CC Console
 
 ## Understanding the Demo JSON Structure
+
+```json
+{
+  "name" : "value",
+  "array" : [
+    1,
+    2,
+    3
+  ]
+}
+```
 
 ## CRUD Actions for MongoDB
 
