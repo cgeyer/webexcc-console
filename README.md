@@ -1,5 +1,8 @@
 # About the Webex CC Console
 
+> [!TIP]
+> Tired of reading? Just visit the [Videos Section](#video-explanations) at the bottom of the document and start watching.
+
 ## What is the Purpose of this Tool?
 The Webex CC Console should help you managing multiple demos so that you can easily adapt multiple parameters and customer CRM data with a simple website. For example, if you have multiple flows created to demonstrate use cases for different industries (healthcare, finance, etc.), you can easily switch between them without logging in to Control Hub. Moreover, you can define demo parameters which can be dynamically changed with the tool - e.g., closing a service queue and setting a dynamic emergency message which will be played to customers. Since this tool also includes the simulation of a small CRM database, you can easily add the details of your real customers there and deliver highly customized demos.
 
@@ -63,3 +66,8 @@ Congratulations, we are now done with all basic steps and you can start adapting
 ## Creating Fully Customized Demos
 
 ## Including Webex CC Console in Agent Desktop
+
+# Video Explanations
+
+* [Installation Part One](https://app.vidcast.io/share/ecd9fdf3-aeac-468e-8c93-95dd9f288a83) 
+
