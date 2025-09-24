@@ -61,16 +61,150 @@ Congratulations, we are now done with all basic steps and you can start adapting
 
 ## Understanding the Demo JSON Structure
 
+MongoDB consists of so called databases and collections and saves all items as JSON structures with a unique ID. A database is equivalent to a database in the SQL world whereas a collection is quite similar to a table - with the major difference that theoretically every item in a collection can have different attributes (JSON keys) or columns in the SQL world. That makes MongoDB a very attractive solution for quick PoCs and demos.
+
+The main collection of the Webex CC Console is called _demos_ and was created in the [first step](#prepare-mongodb) of the installation. If you want to completely customize the environment so the Webex CC Console reflects the demos you have created, you can remove or edit all items via the MongoDB Compass app. There are two type of documents:
+* The _control_ item which saves which demo is currently active.
+* The _demo_ item which saves all details about a demo.
+
+The _control_ item has to be part of the collection and must only exist once. It contains the following fields:
+
 ```json
 {
-  "name" : "value",
-  "array" : [
-    1,
-    2,
-    3
+  "_id": {
+    "$oid": "random ID, usually provided by MongoDB"
+  },
+  "activeDemo": "",
+  "demoSettings": true, /* this is a mandatory field and is required to find out what document is the control item */
+  "dbName": "the name of the MongoDB database which contains the 'demo' collection"
+}
+```
+
+The _demo_ items contains two different parts:
+1. The general definition and attributes of a demo such as the name, a description (optional) and parameters (optional). 
+2. The optional definition of a CRM / customer database which you can use in your demos for identifying customers.
+
+Here is an example of a minimal demo:
+
+```json
+{
+  "_id": {
+    "$oid": "random ID, usually provided by MongoDB"
+  },
+  "name": "name of your demo - will be displayed on the Website and will be saved in the control item - must be unique"
+}
+```
+
+Of course, it is recommended to add a description to your demo which explains the purpose of your demo and can also include some instructions how to use it. Since it will be included in the website, you can even use HTML code for formatting purposes:
+
+```json
+{
+  "_id": {
+    "$oid": "12345"
+  },
+  "name": "My First Demo",
+  "description": "This demo is <b>mindblowing</b>!"
+}
+```
+
+If you want to add some parameters to your demo to make it more dynamic, you can just add an array field called `parameters` to the demo object which contains the following mandatory fields:
+* `name` - the name of the field, should be treated like a variable (e.g., "demoLanguage")
+* `label` - the description of the field, preferrably in your local language (e.g., "Sprache")
+* `type` - the type of the field, can either be `string` or `boolean`
+* `value` - the value of the field, can be anything in case of string, but only `true` or `false` in case of `boolean`
+
+Here is a complete example for a demo which lets you define the language of the demo and whether the contact center is closed:
+
+```json
+{
+  "_id": {
+    "$oid": "12345"
+  },
+  "name": "Multilanguage Demo",
+  "description": "This demo allows you to demonstrate that we support multiple languages. Valid options for the <i>language</i> parameter are &quot;German&quot;, &quot;French&quot; and &quot;English&quot;. The <i>CC Closed?</i> parameter defines whether a call will enter the queue or will be sent to voicemail.",
+  "parameters": [
+    {
+      "name": "demoLanguage",
+      "label": "Preferred Language",
+      "type": "string",
+      "value": "French"
+    },
+    {
+      "name": "ccClosed",
+      "label": "CC Closed?",
+      "type": "boolean",
+      "value": false
+    }
   ]
 }
 ```
+
+Similar to the parameters, you can define the fields for a CRM which is saved in a separate database and collection. Note that the definition of the CRM fields for a demo object is only necessary if you want to manage them through the Webex CC Console - you can still use MongoDB Compass to create and manage your own customer data and access it through Webex CC or Webex Connect as explained in the [next section](#crud-actions-for-mongodb).
+
+The `database` object consists of three items:
+1. `dbName` - points to the database of your MongoDB cluster
+2. `collectionName` - points to the collection in the previously defined database
+3. `fields` - object which describe all fields (or columns) of your CRM database
+
+The `fields` object is very similar to the `parameters` array of a demo object, but with the major difference that there is no value and that each field is defined as an object with the name of the field as key:
+
+```json
+"fields": {
+  "firstField": {
+    "label": "description 1",
+    "type": "string"
+  },
+  "secondField": {
+    "label": "description 2",
+    "type": "boolean"
+  }
+}
+```
+
+Here is a complete example of a demo object with an associated CRM database containing three fields - name, phone number and email address:
+
+```json
+{
+  "_id": {
+    "$oid": "12345"
+  },
+  "name": "Multilanguage Demo",
+  "description": "This demo allows you to demonstrate that we support multiple languages. Valid options for the <i>language</i> parameter are &quot;German&quot;, &quot;French&quot; and &quot;English&quot;. The <i>CC Closed?</i> parameter defines whether a call will enter the queue or will be sent to voicemail.",
+  "parameters": [
+    {
+      "name": "demoLanguage",
+      "label": "Preferred Language",
+      "type": "string",
+      "value": "French"
+    },
+    {
+      "name": "ccClosed",
+      "label": "CC Closed?",
+      "type": "boolean",
+      "value": false
+    }
+  ],
+  "database": {
+    "dbName": "demo",
+    "collectionName": "mlanguage-crm",
+    "fields": {
+      "customerName": {
+        "type": "string",
+        "label": "Customer Full Name"
+      },
+      "phoneNumber": {
+        "type": "string",
+        "label": "Customer Phone Number"
+      },
+      "email": {
+        "type": "string",
+        "label": "Customer Email"
+      }
+    }
+  }
+}
+```
+
 
 ## CRUD Actions for MongoDB
 
