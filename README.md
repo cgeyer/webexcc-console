@@ -107,13 +107,13 @@ Of course, it is recommended to add a description to your demo which explains th
 }
 ```
 
-If you want to add some parameters to your demo to make it more dynamic, you can just add an array field called `parameters` to the demo object which contains the following mandatory fields:
-* `name` - the name of the field, should be treated like a variable (e.g., "demoLanguage")
+If you want to add some parameters to your demo to make it more dynamic, you can just add a JSON object called `parameters` which may contain multiple parameters, each with the following structure:
+* key - the unique name / identifier of the field
 * `label` - the description of the field, preferrably in your local language (e.g., "Sprache")
 * `type` - the type of the field, can either be `string` or `boolean`
 * `value` - the value of the field, can be anything in case of string, but only `true` or `false` in case of `boolean`
 
-Here is a complete example for a demo which lets you define the language of the demo and whether the contact center is closed:
+Here is a working example for a demo which lets you define the language of the demo and whether the contact center is closed:
 
 ```json
 {
@@ -122,31 +122,29 @@ Here is a complete example for a demo which lets you define the language of the 
   },
   "name": "Multilanguage Demo",
   "description": "This demo allows you to demonstrate that we support multiple languages. Valid options for the <i>language</i> parameter are &quot;German&quot;, &quot;French&quot; and &quot;English&quot;. The <i>CC Closed?</i> parameter defines whether a call will enter the queue or will be sent to voicemail.",
-  "parameters": [
-    {
-      "name": "demoLanguage",
+  "parameters": {
+    "demoLanguage": {
       "label": "Preferred Language",
       "type": "string",
       "value": "French"
     },
-    {
-      "name": "ccClosed",
+    "ccClosed": {
       "label": "CC Closed?",
       "type": "boolean",
       "value": false
     }
-  ]
+  }
 }
 ```
 
-Similar to the parameters, you can define the fields for a CRM which is saved in a separate database and collection. Note that the definition of the CRM fields for a demo object is only necessary if you want to manage them through the Webex CC Console - you can still use MongoDB Compass to create and manage your own customer data and access it through Webex CC or Webex Connect as explained in the [next section](#crud-actions-for-mongodb).
+Similar to the parameters, you can define the fields for a CRM which is saved in a separate database and collection. Note that the definition of the CRM fields for a demo object is only necessary if you want to manage them through the Webex CC Console - you can still use MongoDB Compass to create and manage your own customer data and access it through Webex CC or Webex Connect as explained in the [next section](#crud-actions-for-mongodb). Note that you do not need to create any database or collection for the CRM database in MongoDB to start using it - the Webex CC Console allows you to insert documents based on the definition and you can edit entries later at any time.
 
 The `database` object consists of three items:
 1. `dbName` - points to the database of your MongoDB cluster
 2. `collectionName` - points to the collection in the previously defined database
 3. `fields` - object which describe all fields (or columns) of your CRM database
 
-The `fields` object is very similar to the `parameters` array of a demo object, but with the major difference that there is no value and that each field is defined as an object with the name of the field as key:
+The `fields` object is very similar to the `parameters` objects explained above, but with the major difference that there is no `value` parameter:
 
 ```json
 "fields": {
@@ -170,20 +168,18 @@ Here is a complete example of a demo object with an associated CRM database cont
   },
   "name": "Multilanguage Demo",
   "description": "This demo allows you to demonstrate that we support multiple languages. Valid options for the <i>language</i> parameter are &quot;German&quot;, &quot;French&quot; and &quot;English&quot;. The <i>CC Closed?</i> parameter defines whether a call will enter the queue or will be sent to voicemail.",
-  "parameters": [
-    {
-      "name": "demoLanguage",
+  "parameters": {
+    "demoLanguage": {
       "label": "Preferred Language",
       "type": "string",
       "value": "French"
     },
-    {
-      "name": "ccClosed",
+    "ccClosed": {
       "label": "CC Closed?",
       "type": "boolean",
       "value": false
     }
-  ],
+  },
   "database": {
     "dbName": "demo",
     "collectionName": "mlanguage-crm",
@@ -204,7 +200,6 @@ Here is a complete example of a demo object with an associated CRM database cont
   }
 }
 ```
-
 
 ## CRUD Actions for MongoDB
 
