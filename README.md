@@ -67,7 +67,7 @@ The main collection of the Webex CC Console is called _demos_ and was created in
 * The _control_ item which saves which demo is currently active.
 * The _demo_ item which saves all details about a demo.
 
-The _control_ item has to be part of the collection and must only exist once. It contains the following mandatory fields (note that the `demoSettings` field always needs to be `true`:
+The _control_ item has to be part of the collection and must only exist once. It contains the following mandatory fields (note that the `demoSettings` field always needs to be `true`):
 
 ```json
 {
