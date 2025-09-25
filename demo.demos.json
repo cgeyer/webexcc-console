@@ -12,14 +12,13 @@
   },
   "name": "energyAIAgent",
   "description": "This demo uses the Webex AI Agent and lets the calling person choose a new contract. You can customize the demo by providing the name of the company.",
-  "parameters": [
-    {
-      "name": "companyName",
-      "type": "string",
-      "label": "Company Name",
-      "value": "MyEnergy"
+  "parameters": {
+      "companyName": {
+        "type": "string",
+        "label": "Company Name",
+        "value": "MyEnergy"
     }
-  ],
+  },
   "database": {
     "fields": {
       "customerName": {
@@ -57,26 +56,23 @@
   },
   "name": "energyIVR",
   "description": "This demo uses standard IVR menus and database lookups to let the calling person manage their existing contract. You can customize the demo by providing the name of the company and choose whether a special announcement is active or not.",
-  "parameters": [
-    {
-      "name": "emergencyOn",
+  "parameters": {
+      "emergencyOn": {
       "label": "Enable Emergency Message",
       "type": "boolean",
       "value": true
     },
-    {
-      "name": "emergencyMessage",
+    "emergencyMessage": {
       "label": "Emergency Message",
       "type": "string",
       "value": "We are aware of the current power outage - please only stay on the line if you have a different concern."
     },
-    {
-      "name": "companyName",
+    "companyName": {
       "type": "string",
       "label": "Company Name",
       "value": "Future Energy"
     }
-  ],
+  },
   "database": {
     "fields": {
       "customerName": {

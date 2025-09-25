@@ -50,11 +50,11 @@
                 <div class="demoparams">
                   <h3>Demo Parameters</h3>
         <%_     var parameters = demos[i].parameters; _%>
-        <%_     for (var j = 0; j < parameters.length; j++) { _%>             
-        <%_       if (parameters[j].type == "string") { _%>
-                  <mdc-input label="<%=parameters[j].label%>" validation-message="" placeholder="<%=parameters[j].label%>" id="<%=demos[i]._id + '-' + parameters[j].name%>" value="<%=parameters[j].value%>" autocapitalize="none" clear-aria-label="clear input"></mdc-input>
-        <%_       } else if (parameters[j].type == "boolean") { _%>
-                  <mdc-toggle id="<%=demos[i]._id + '-' + parameters[j].name%>"<%-(parameters[j].value) ? ' checked=""' : '';-%> size="default" label="<%=parameters[j].label%>"></mdc-toggle>
+        <%_     for (var param in parameters) { _%>             
+        <%_       if (parameters[param].type == "string") { _%>
+                  <mdc-input label="<%=parameters[param].label%>" validation-message="" placeholder="<%=parameters[param].label%>" id="<%=demos[i]._id + '-' + param%>" value="<%=parameters[param].value%>" autocapitalize="none" clear-aria-label="clear input"></mdc-input>
+        <%_       } else if (parameters[param].type == "boolean") { _%>
+                  <mdc-toggle id="<%=demos[i]._id + '-' + param%>"<%-(parameters[param].value) ? ' checked=""' : '';-%> size="default" label="<%=parameters[param].label%>"></mdc-toggle>
         <%_       } _%>
         <%_     } _%>
                   <div class="demoparamssave">

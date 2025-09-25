@@ -867,12 +867,12 @@ async function saveDemoParameters(demoId) {
   }
 
   /* get all parameters from fields */
-  for (let i = 0; i < demoParams.length; i++) {
-    let inputField = document.getElementById(demoId + "-" + demoParams[i].name);
-    if (demoParams[i].type == "string") {
-      demoParams[i].value = inputField.value;
-    } else if (demoParams[i].type == "boolean") {
-      demoParams[i].value = inputField.hasAttribute("checked");
+  for (let param in demoParams) {
+    let inputField = document.getElementById(demoId + "-" + param);
+    if (demoParams[param].type == "string") {
+      demoParams[param].value = inputField.value;
+    } else if (demoParams[param].type == "boolean") {
+      demoParams[param].value = inputField.hasAttribute("checked");
     }
   }
 
