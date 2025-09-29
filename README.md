@@ -4,12 +4,14 @@
 > Tired of reading? Just visit the [Videos Section](#video-explanations) at the bottom of the document and start watching.
 
 ## What is the Purpose of this Tool?
-The Webex CC Console should help you managing multiple demos so that you can easily adapt multiple parameters and customer CRM data with a simple website. For example, if you have multiple flows created to demonstrate use cases for different industries (healthcare, finance, etc.), you can easily switch between them without logging in to Control Hub. Moreover, you can define demo parameters which can be dynamically changed with the tool - e.g., closing a service queue and setting a dynamic emergency message which will be played to customers. Since this tool also includes the simulation of a small CRM database, you can easily add the details of your real customers there and deliver highly customized demos.
+When dealing with custom demos in Webex CC, it is often cumbersome to switch between different scenarios. It usually requires the admin of the sandbox environment to select to the proper flow which is assigned to the main phone number. Moreover, customers often want to see some standard features like a database / CRM integration live which is often only possible APIs. The main goal of the Webex CC Console is to improve the management and implementation of your Webex CC demos. You can easily switch between different flows, adapt demo parameters such as dynamic announcement texts, and manipulate CRM data - all from a simple website without the need for the end user to be familiar with the technical details of Webex CC.
 
 ## Application Examples
-The most obvious one is to save the link the static website which hosts the service so you can quickly change the most important parameters. Since it is a public URL, everyone who knows it can potentially use it - including non-technical people. You can even save the URL as a web application on a Cisco video endpoint (e.g., Board Pro) and have the tool easily available in your demo environment. 
+As mentioned in the previous section, one of the main goals of the Webex CC console is to switch between different flows / scenarios. Moreover, you can define optional parameters for each demo which can be changed through the website. A good use case for that is a dynamic emergency announcement which is defined as parameter for a demo. Since there is no technical knowledge required, it can be used by anyone and you can even share it with a customer during a session.
 
-A second use case is to leverage the tool as a "supervisor console" within agent desktop. E.g., if you have demos with dynamic parameters, you can simply integrate the URL of the Webex CC console in the agent desktop and let the supervisor change some dynamic parameters (see [Creating Fully Customized Demos](#creating-fully-customized-demos)).
+The Webex CC Console also includes a [REST API wrapper for MongoDB](#crud-actions-for-mongodb) with the four main database functions (create, update, find and delete documents). Thus, you can leverage the tool for any kind of database interactions from different solutions including Webex Contact Center and Webex Connect.
+
+A third use case is to leverage the tool as a "supervisor console" within the agent desktop. E.g., if you have demos with dynamic parameters, you can simply integrate the URL of the Webex CC console in the agent desktop and let the supervisor change some dynamic parameters (see [Creating Fully Customized Demos](#creating-fully-customized-demos)).
 
 ## Architecture at a Glance
 The Webex CC Console is built using four main components:
@@ -202,6 +204,8 @@ Here is a complete example of a demo object with an associated CRM database cont
 ```
 
 ## CRUD Actions for MongoDB
+
+
 
 ## Creating Fully Customized Demos
 
