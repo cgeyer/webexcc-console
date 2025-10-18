@@ -207,7 +207,7 @@ Here is a complete example of a demo object with an associated CRM database cont
 
 ## CRUD Actions for MongoDB
 
-The Webex CC Console also includes a wrapper for the four most common database transactions and maps them to the respective MongoDB functions. All of them can be easily accessed by using a `POST` request on the `db` path (i.e., `https://<username>.alwaysdata.net/db`) and append the supported function. The paths are defined in the `dbrouter.js` file in the `db` folder of the project. The implementation of the database actions are all implemeted in the `MongoDB.js` file in the same folder. Thus, you can easily extended the Webex CC Console by adding more functions supported by MongoDB. Please also refer to the official documentation of the [MongoDB node.js drivers](https://www.mongodb.com/docs/drivers/node/current/) for further information.
+The Webex CC Console also includes a wrapper for the four most common database transactions and maps them to the respective MongoDB functions. All of them can be easily accessed by using a `POST` request on the `db` path (i.e., `https://<username>.alwaysdata.net/db`) and appending the respective function. The exact paths are defined in the `dbrouter.js` file in the `db` folder of the project. The implementation of the database actions are all implemeted in the `MongoDB.js` file in the same folder. You can easily extend or modify the current implementation by adaping that file accordingly. Please also refer to the official documentation of the [MongoDB node.js drivers](https://www.mongodb.com/docs/drivers/node/current/) for further information.
 
 ### Create Document / `db/create`
 
@@ -253,7 +253,7 @@ Example for the `POST` request body (searches the document created in the previo
 
 ### Update Document / `db/update`
 
-Updates documents (maps to the [updateOne()](https://www.mongodb.com/docs/drivers/node/current/crud/update/modify/) function of MongoDB using the `$set` operator), but doesn't create a new object if no document with the specified query parameters is found. Returns the JSON object defined by the MongoDB `updatedOne()` function.
+Updates documents (maps to the [updateOne()](https://www.mongodb.com/docs/drivers/node/current/crud/update/modify/) function of MongoDB using the `$set` operator), but doesn't create a new object if no document with the specified query parameters is found. Returns the JSON object defined by the MongoDB `updateOne()` function.
 
 Expected parameters:
 * `dbName`: the name of the database where to search for the document.
