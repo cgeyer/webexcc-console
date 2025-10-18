@@ -207,6 +207,96 @@ Here is a complete example of a demo object with an associated CRM database cont
 
 ## CRUD Actions for MongoDB
 
+The Webex CC Console also includes a wrapper for the four most common database transactions and maps them to the respective MongoDB functions. All of them can be easily accessed by using a `POST` request on the `db` path (i.e., `https://<username>.alwaysdata.net/db`) and append the supported function. The paths are defined in the `dbrouter.js` file in the `db` folder of the project. The implementation of the database actions are all implemeted in the `MongoDB.js` file in the same folder. Thus, you can easily extended the Webex CC Console by adding more functions supported by MongoDB. Please also refer to the official documentation of the [MongoDB node.js drivers](https://www.mongodb.com/docs/drivers/node/current/) for further information.
+
+### Create Document / `db/create`
+
+Creates a new single document (maps to the [insertOne()](https://www.mongodb.com/docs/drivers/node/current/crud/insert/) function of MongoDB). Will create a new database and / or collection if the specified ones do not exist. Returns the JSON object defined by the MongoDB `insertOne()` function.
+
+Expected parameters:
+* `dbName`: the name of the database where the new document will be added.
+* `collectionName`: the name of the collection within the previously defined database where the new document will be added.
+* `values`: a JSON object with any kind of supported data in key / value format. Does not need to have an `_id` key - that is usually automatically created by MongoDB.
+
+Example for the `POST` request body (creates a basic JSON object with a number):
+```
+{
+  "dbName":"database",
+  "collectionName":"collection",
+  "values" : {
+    "test" : 1 
+  }
+}
+```
+
+### Find Document / `db/find`
+
+Finds documents (maps to the [find()](https://www.mongodb.com/docs/drivers/node/current/crud/query/retrieve/) function of MongoDB, but doesn't implement projections) based on the provided search parameters. The result object will always be an array, even if there is no (will return an empty array) or just a single document found (will return an array with a single item).
+
+Expected parameters:
+* `dbName`: the name of the database where to search for the document.
+* `collectionName`: the name of the collection within the previously defined database where to search for the document.
+* `query`: a JSON object which allows you to test for values. Also supports dynamic queries as defined by the [MongoDB API](https://www.mongodb.com/docs/drivers/node/current/crud/query/query-document/) (e.g., `$lt` for testing numbers to be less than a specified value). When using dynamic tests with query parameters, make sure that they are put in quotes (e.g., `"$lt" : 5`).
+
+Example for the `POST` request body (searches the document created in the previous step by looking for all documents which have a value of 1 or greater for the "test" key):
+```
+{
+  "dbName":"database",
+  "collectionName":"collection",
+  "query" : {
+    "test" : {
+      "$gte" : 1 
+    }
+  }
+}
+```
+
+### Update Document / `db/update`
+
+Updates documents (maps to the [updateOne()](https://www.mongodb.com/docs/drivers/node/current/crud/update/modify/) function of MongoDB using the `$set` operator), but doesn't create a new object if no document with the specified query parameters is found. Returns the JSON object defined by the MongoDB `updatedOne()` function.
+
+Expected parameters:
+* `dbName`: the name of the database where to search for the document.
+* `collectionName`: the name of the collection within the previously defined database where to search for the document.
+* `query`: a JSON object which allows you to test for values. If the query contains the `_id` key, all other provided search parameters will be ignored.
+* `updateValues`: a JSON object with the new values for the specified key. Will create a new key - value pair within the found object if the specified key does not exist.
+
+Example for the `POST` request body (updates the document created in a previous step and setting the "test" value to 2):
+```
+{
+  "dbName":"database",
+  "collectionName":"collection",
+  "query" : {
+    "test" : {
+      "$gte" : 1 
+    }
+  },
+  "updateValues" : {
+    "test" : 2
+  }
+}
+```
+
+### Delete Document / `db/delete`
+
+Deletes a document (maps to the [deleteOne()](https://www.mongodb.com/docs/drivers/node/current/crud/delete/)) which is matching the provided search parameters. It will not remove the collection or the database when the provided search is deleting the last document of the collection and / or database. Returns the JSON object defined by the MongoDB `deleteOne()` function.
+Expected parameters:
+* `dbName`: the name of the database where to search for the document.
+* `collectionName`: the name of the collection within the previously defined database where to search for the document.
+* `query`: a JSON object which allows you to test for values. If the query contains the `_id` key, all other provided search parameters will be ignored.
+
+Example for the `POST` request body (deletes the document created in a previous step):
+```
+{
+  "dbName":"database",
+  "collectionName":"collection",
+  "query" : {
+    "test" : {
+      "$gte" : 1 
+    }
+  }
+}
+```
 
 
 ## Creating Fully Customized Demos
