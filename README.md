@@ -207,7 +207,10 @@ Here is a complete example of a demo object with an associated CRM database cont
 
 ## CRUD Actions for MongoDB
 
-The Webex CC Console also includes a wrapper for the four most common database transactions and maps them to the respective MongoDB functions. All of them can be easily accessed by using a `POST` request on the `db` path (i.e., `https://<username>.alwaysdata.net/db`) and appending the respective function. The exact paths are defined in the `dbrouter.js` file in the `db` folder of the project. The implementation of the database actions are all implemeted in the `MongoDB.js` file in the same folder. You can easily extend or modify the current implementation by adaping that file accordingly. Please also refer to the official documentation of the [MongoDB node.js drivers](https://www.mongodb.com/docs/drivers/node/current/) for further information.
+The Webex CC Console can also be used without using the GUI and includes a REST API wrapper for the most common database transactions which are mapped to the respective MongoDB functions. All of them can be easily accessed by using a `POST` request on the `db` path (i.e., `https://<username>.alwaysdata.net/db`) and appending the respective function. The exact paths are defined in the `dbrouter.js` file in the `db` folder of the project. The implementation of the database actions are all implemeted in the `MongoDB.js` file in the same folder. You can easily extend or modify the current implementation by adaping that file accordingly. Please also refer to the official documentation of the [MongoDB node.js drivers](https://www.mongodb.com/docs/drivers/node/current/) for further information.
+
+> [!IMPORTANT]
+> Since the authorization for MongoDB is handled by node.js in the background, the REST API can be accessed and used by anyone who knows the public URI. The Webex CC Console is thus not meant to be used for production purposes in the current implementation. 
 
 ### Create Document / `db/create`
 
@@ -298,8 +301,17 @@ Example for the `POST` request body (deletes the document created in a previous 
 }
 ```
 
-
 ## Creating Fully Customized Demos
+
+Based on the previous sections, you should now be able to create your own fully customized demos. The general guidance is to go through the following steps when starting from sratch:
+* Define the purpose of the demo and what features you want to show to your customers.
+* Define the dynamic parameters which should be configurable for every flow. See 
+* Define the structure of your CRM database, what field(s) will be used to identify a customer and what additional data you need demonstrate your showcase.
+
+
+### Voice Demos Webex CC Flow Designer
+
+### Digital Demos in Webex Connect Flow Designer
 
 ## Including Webex CC Console in Agent Desktop
 
