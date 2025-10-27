@@ -303,7 +303,7 @@ Example for the `POST` request body (deletes the document created in a previous 
 
 ## Creating Fully Customized Demos
 
-Based on the previous sections, you should now be able to create your own fully customized demos. The general guidance is to go through the following steps when starting from sratch:
+Based on the previous sections, you should now be able to create your own fully customized demos. The general guidance is to go through the following steps when starting from scratch:
 * Define the purpose of the demo and what features you want to show to your customers.
 * Define the dynamic parameters which should be configurable for every flow. See 
 * Define the structure of your CRM database, what field(s) will be used to identify a customer and what additional data you need demonstrate your showcase.
