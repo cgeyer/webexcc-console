@@ -1,10 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const {findDocuments, updateDocument, createDocument, deleteDocument} = require('./db/mongoDB');
 const dbRouter = require('./db/dbrouter');
 const ejs = require('ejs');
 
 const app = express();
 
+
+// CORS configuration
+app.use(cors({
+  origin: 'https://desktop.wxcc-us1.cisco.com',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(express.static('static'));
 app.use('/@momentum-design', express.static('./node_modules/@momentum-design'));
@@ -21,6 +29,7 @@ app.set('view engine', 'ejs');
 app.get('/demo.html', async (req, res) => {
 
   let {dbName} = req.query;
+  let {supervisorMode} = req.query;
 
   if (dbName === undefined) {
     dbName = "demo";
@@ -28,9 +37,20 @@ app.get('/demo.html', async (req, res) => {
 
   let demoSettings = await findDocuments(dbName, "demos", query = {"demoSettings" : {$exists: true}});
 
-  let demoResults = await findDocuments(dbName, "demos", query = {"demoSettings" : {$exists: false}})
+  let demoResults;
 
-  res.render('demo', {demoSettings: demoSettings[0], demos: demoResults});
+  let title = "Webex Contact Center Demos";
+
+  if (supervisorMode !== undefined && supervisorMode == "on") {
+    title = "Supervisor Controls"
+    demoResults = await findDocuments(dbName, "demos", query = {"name" : demoSettings[0].activeDemo});
+    supervisorMode = true;
+  } else {
+    demoResults = await findDocuments(dbName, "demos", query = {"demoSettings" : {$exists: false}});
+    supervisorMode = false;
+  }
+
+  res.render('demo', {demoSettings: demoSettings[0], demos: demoResults, title: title, supervisorMode: supervisorMode});
 });
 
 

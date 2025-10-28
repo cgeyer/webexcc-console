@@ -23,21 +23,23 @@
           <div id="header">
               <mdc-appheader>
                 <div slot="center">
-                  <mdc-text type="heading-midsize-bold">Webex Contact Center Demos</mdc-text>
+                  <mdc-text type="heading-midsize-bold"><%=title%></mdc-text>
                 </div>
                 <div slot="trailing">
                   <mdc-toggle label="Dark Theme" onChange="themeSwitcher('mds-theme-stable-darkWebex')" id="theme-toggle"></mdc-toggle>
                 </div>
               </mdc-appheader>
+        <%_   if (!supervisorMode) { _%>    
               <mdc-text type="heading-small-medium" slot="center">Active Demo: <span id="activeDemoName"><%=demoSettings.activeDemo%></span></mdc-text>
+        <%    } _%>
           </div>
           <div class="canvas">
             <mdc-accordiongroup size="large" variant="stacked" class="demos">
         <%_ for (var i = 0; i < demos.length; i++) { _%>
               <mdc-accordion data-aria-level="3" header-text="<%=demos[i].name%>" size="small" variant="default" id="<%=demos[i]._id%>-accordion" onClick="loadCRM('<%=demos[i]._id%>')">
-        <%_   if (demoSettings.activeDemo == demos[i].name) { _%>
+        <%_   if (demoSettings.activeDemo == demos[i].name && !supervisorMode) { _%>
                 <mdc-chip slot="trailing-controls" color="mint" label="Active" id="<%=demos[i].name%>-enable"></mdc-chip>
-        <%_   }  else {   _%>  
+        <%_   }  else if (!supervisorMode) {   _%>  
                 <mdc-chip slot="trailing-controls" color="orange" label="Enable" id="<%=demos[i].name%>-enable" onclick="confirmActiveDemo('<%=demos[i].name%>')"></mdc-chip>
         <%_   } _%>
         <%_   if (demos[i].hasOwnProperty('description')) { _%>
